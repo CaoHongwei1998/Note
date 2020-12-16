@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mynotes.dao.mapper.NoteMapper">
+
+    <!--根据学生id查假条-->
+    <select id="findNoteBySut" resultType="com.example.mynotes.dao.domain.Note" parameterType="int">
+        select * from notelist where student_id=#{student_id}
+    </select>
+
+    <!--根据假条id查假条-->
+    <select id="findNoteById" resultType="com.example.mynotes.dao.domain.Note" parameterType="int">
+        select * from notelist where note_id=#{note_id}
+    </select>
+
+    <!--新增假条-->
+    <insert id="createNote" parameterType="com.example.mynotes.dao.domain.Note">
+        insert into notelist(student_id,note_time,note_start,note_end,note_reason,approve_status)
+        values (#{student_id},#{note_time},#{note_start},#{note_end},#{note_reason},#{approve_status})
+    </insert>
+
+    <!--修改假条信息-->
+    <update id="updateNote" parameterType="com.example.mynotes.dao.domain.Note">
+        update notelist set approver_id=#{approver_id},approve_status=#{approve_status},approve_time=#{approve_time},approve_reason=#{approve_reason}
+        where note_id=#{note_id}
+    </update>
+
+    <!--删除假条-->
+    <delete id="delNoteById" parameterType="com.example.mynotes.dao.domain.Note">
+        delete from notelist where note_id=#{note_id}
+    </delete>
+
+    <!--根据老师id查假条-->
+    <select id="findNoteByTId" resultType="com.example.mynotes.dao.domain.Note" parameterType="int">
+        select notelist.note_id,notelist.student_id,notelist.approver_id,notelist.note_time,notelist.note_start,notelist.note_end,notelist.note_reason,notelist.approve_status,notelist.approve_time,notelist.approve_reason from notelist,student,teacher
+        where notelist.student_id=student.student_id and student.student_class=teacher.teacher_class and teacher.teacher_id=#{teacher_id}
+    </select>
+
+
+
+</mapper>

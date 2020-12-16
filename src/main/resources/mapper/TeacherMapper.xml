@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mynotes.dao.mapper.TeacherMapper">
+
+
+
+
+
+
+    <!--登录查询-->
+    <select id="teacherLogin" resultType="com.example.mynotes.dao.domain.Teacher" parameterType="com.example.mynotes.dao.domain.Teacher">
+        select * from teacher where teacher_jnum=#{teacher_jnum} and teacher_pwd=#{teacher_pwd}
+    </select>
+
+    <!--老师注册-->
+    <insert id="teacherRegister" parameterType="com.example.mynotes.dao.domain.Teacher">
+        insert into teacher(teacher_name,teacher_jnum,teacher_pwd,teacher_class)
+        values (#{teacher_name},#{teacher_jnum},#{teacher_pwd},#{teacher_class})
+    </insert>
+
+    <!--id查询-->
+    <select id="findTeacherById" resultType="com.example.mynotes.dao.domain.Teacher" parameterType="int">
+        select * from teacher where teacher_id=#{teacher_id}
+    </select>
+
+    <!--jnum查询-->
+    <select id="findTeacherByJnum" resultType="com.example.mynotes.dao.domain.Teacher" parameterType="int">
+        select * from teacher where teacher_jnum=#{teacher_jnum}
+    </select>
+
+</mapper>
